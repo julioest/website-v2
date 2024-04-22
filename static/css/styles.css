@@ -602,10 +602,6 @@ body {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-body {
-  font-family: 'Cairo', sans-serif;
-}
-
 h1 {
   font-size: 3.75rem;
   line-height: 1;
@@ -974,8 +970,6 @@ select.dropdown {
   #libraryReadMe samp,
   #libraryReadMe pre {
   background-color: transparent;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
 }
 
 code,
@@ -2747,10 +2741,6 @@ code,
 
 .align-bottom {
   vertical-align: bottom;
-}
-
-.font-cairo {
-  font-family: 'Cairo', sans-serif;
 }
 
 .text-5xl {
