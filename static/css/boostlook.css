@@ -1,35 +1,57 @@
 /**
  * README:
- * This stylesheet contains styles for both AsciiDoctor and Antora templates.
- * The `boostlook` class is applied across both, but due to differences in their HTML structure,
- * specific CSS rules are necessary to target each appropriately.
+ * This stylesheet provides styles for both AsciiDoctor and Antora templates, using the
+ * `boostlook` class for a consistent appearance across both templates.
+ *
+ * Note: This is a work-in-progress and may continue to evolve as templates and requirements
+ * change.
  *
  * High-Level HTML Structure:
- * 
- * - Antora Template:
+ *
+ * - Common Structure:
  *   <div class="boostlook">
- *     <div class="card nav-container">...</div>
- *     <div class="doc">...</div>
+ *     <div class="header">...</div>
+ *     <div class="content">...</div>
+ *     <div class="footer">...</div>
  *   </div>
  *
- * - AsciiDoctor Template:
+ * - AsciiDoctor Example:
  *   <div class="boostlook">
- *     <div id="header">...</div>
- *     <div id="content">...</div>
+ *     <div class="header">
+ *       <h1>...</h1>
+ *       <button id="toggle-toc">Show Table of Contents</button>
+ *       <div id="toc" class="toc2"></div>
+ *     </div>
+ *     <div id="content">
+ *       <div class="sect1">...</div>
+ *     </div>
  *     <div id="footer">...</div>
  *   </div>
  *
- * - For Antora templates:
- *   The `.boostlook .doc` selector targets elements within the `.doc` class, and the 
- *   `.boostlook .nav-container` selector targets elements within the `.nav-container` class,
- *   both of which are specific to the Antora HTML structure.
+ * - Antora Example:
+ *   <div class="boostlook">
+ *     <div class="header">
+ *       <div class="nav-container toc2">...</div>
+ *     </div>
+ *     <div id="content">
+ *       <article class="doc max-width-reset">
+ *         <h1>Getting Started</h1>
+ *         <div class="sect1">...</div>
+ *       </article>
+ *     </div>
+ *     <div id="footer">...</div>
+ *   </div>
  *
- * - For AsciiDoctor templates:
- *   The `.boostlook:not(:has(.doc))` selector is used to target elements that do not have 
- *   a `.doc` child, applying styles specific to AsciiDoctor content.
-
- *   Since the `.doc` class is not present in the structure above, the styles defined for 
- *   `.boostlook:not(:has(.doc))` will apply.
+ * - Shared Styles:
+ *   Selectors like `.boostlook .header`, `.boostlook .content`, and `.boostlook .footer`
+ *   apply common styles across both templates.
+ *
+ * - Specific Styles:
+ *   Use `.boostlook:not(:has(.doc))` for AsciiDoctor-specific styles and
+ *   `.boostlook .doc` for Antora-specific styles to target unique elements accordingly.
+ *
+ * This CSS file aims to simplify maintenance by aligning the HTML structure and
+ * reducing the need for complex selectors.
  */
 
 /*----------------- Root Variables - Start -----------------*/
@@ -248,11 +270,11 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .boostlook h1 { font-size: 2.5rem; }
-.boostlook h2 { font-size: 2rem; }  
+.boostlook h2 { font-size: 2rem; }
 .boostlook h3 { font-size: 1.5rem; }
 .boostlook h4 { font-size: 1.35rem; }
 .boostlook h5 { font-size: 1.25rem; }
-.boostlook h6 { font-size: 1rem; } 
+.boostlook h6 { font-size: 1rem; }
 
 .boostlook h1,
 .boostlook h2,
@@ -264,7 +286,7 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
 }
 
-.boostlook p { 
+.boostlook p {
   font-size: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -274,7 +296,7 @@ p, h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-.boostlook a, 
+.boostlook a,
 .boostlook .doc a {
   color: var(--bl-link-color);
   text-decoration: none;
@@ -308,7 +330,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook p kbd,
 .boostlook p samp,
 .boostlook p pre {
-  background-color: transparent !important;
+  overflow-x: hidden;
 }
 
 .boostlook .content div:has(> table) {
@@ -320,14 +342,14 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--bl-code-text-color) !important;
 }
 
-.boostlook .quoteblock, 
+.boostlook .quoteblock,
 .boostlook .verseblock {
   background: var(--bl-quote-background);
   border-left: 3px solid var(--bl-border-color);
   color: var(--bl-text-color);
 }
 
-.boostlook .quoteblock::before, 
+.boostlook .quoteblock::before,
 .boostlook .verseblock::before {
   color: var(--bl-quote-word-color);
 }
@@ -336,8 +358,8 @@ p, h1, h2, h3, h4, h5, h6 {
   background-color: var(--bl-tabpanel-background);
 }
 
-.boostlook .hljs-keyword, 
-.boostlook .hljs-selector-tag, 
+.boostlook .hljs-keyword,
+.boostlook .hljs-selector-tag,
 .boostlook .hljs-subst {
   color: var(--bl-hljs-keyword-color);
 }
@@ -346,13 +368,13 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--bl-hljs-number-color);
 }
 
-.boostlook .hljs-doctag, 
+.boostlook .hljs-doctag,
 .boostlook .hljs-string {
   color: var(--bl-hljs-doctag-color);
 }
 
-.boostlook .hljs-section, 
-.boostlook .hljs-selector-id, 
+.boostlook .hljs-section,
+.boostlook .hljs-selector-id,
 .boostlook .hljs-title {
   color: var(--bl-hljs-section-color);
 }
@@ -363,8 +385,8 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--bl-link-color);
 }
 
-.boostlook .hljs-attribute, 
-.boostlook .hljs-name, 
+.boostlook .hljs-attribute,
+.boostlook .hljs-name,
 .boostlook .hljs-tag {
   color: var(--bl-hljs-attribute-color);
 }
@@ -448,7 +470,7 @@ p, h1, h2, h3, h4, h5, h6 {
 .boostlook #toc #toctitle {
   font-size: 1.5rem;
 }
- 
+
 .boostlook,
 .boostlook #toc.toc2 {
   background-color: var(--bl-card-background-color);
@@ -540,7 +562,7 @@ p, h1, h2, h3, h4, h5, h6 {
     height: 2rem;
     width: 2rem;
     text-indent: -9999px;
-    z-index: 1001; 
+    z-index: 1001;
   }
 }
 
@@ -567,7 +589,7 @@ p, h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     visibility: hidden;
   }
-  
+
   html.toc-visible #toc.toc2 {
     opacity: 1;
     visibility: visible;
@@ -646,11 +668,11 @@ p, h1, h2, h3, h4, h5, h6 {
   color: var(--bl-link-hover-color);
 }
 
-.boostlook .nav-text { 
+.boostlook .nav-text {
   color: #828282;
 }
 
-/* TODO: Remove when docs wrapper is resolved in website-v2 */ 
+/* TODO: Remove when docs wrapper is resolved in website-v2 */
 .source-docs-antora .boostlook #toc.toc2 {
   top: 1rem !important;
   max-height: calc(100vh - 1rem) !important;
@@ -696,6 +718,7 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .boostlook .doc pre {
   padding: initial;
+  overflow-x: hidden;
 }
 
 /* Layout */
@@ -749,7 +772,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 /* Toolbar */
-.boostlook .toolbar .breadcrumbs a, 
+.boostlook .toolbar .breadcrumbs a,
 .boostlook .toolbar .breadcrumbs li {
   color: var(--bl-text-color);
 }
